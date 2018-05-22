@@ -1,5 +1,7 @@
-import BTree.BTree;
-import Messages.Messages;
+package src;
+
+import src.BTree.BTree;
+import src.Messages.Messages;
 
 import java.io.IOException;
 import java.nio.file.Files;
