@@ -1,16 +1,20 @@
 package src.BTree;
 
-import java.util.LinkedList;
-
 public class BTreeNode {
 
 //    private int t;
-    private Boolean isLeaf;
-    private BTreeNode[] sons;
-    private int[] values;
-//    private int maxLength;
+//    private Boolean isLeaf;
+//    private BTreeNode[] sons;
+//    private String[] keys;
+//    private int numberOfKeys = 0;
+    // TODO: change private
+    public Boolean isLeaf;
+    public BTreeNode[] sons;
+    public String[] keys;
+    public int numberOfKeys = 0;
+
+    //    private int maxLength;
 //    private int minLength;
-    private int numberOfKeys = 0;
 
 //    public int getT() {
 //        return this.t;
@@ -57,7 +61,7 @@ public class BTreeNode {
 //        this.maxLength = this.t * 2 - 1;
 //        this.minLength = this.t - 1;
         this.sons = new BTreeNode[maxLength];
-        this.values = new int[maxLength + 1];
+        this.keys = new String[maxLength + 1];
 
 
     }
@@ -70,16 +74,16 @@ public class BTreeNode {
         this.sons[n] = node;
     }
 
-    public int getNthkey(int n){
-        return this.values[n];
+    public String getNthkey(int n){
+        return this.keys[n];
     }
 
-    public void setNthkey(int n , int value){
-        this.values[n] = value;
+    public void setNthkey(int n , String value){
+        this.keys[n] = value;
     }
 
-    public int[] getValues(){
-        return this.values;
+    public String[] getKeys(){
+        return this.keys;
     }
 
 

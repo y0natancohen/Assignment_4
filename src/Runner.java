@@ -29,16 +29,26 @@ public class Runner {
 		Messages messages = createArrayOfMessages();
 
 		//For each message, create a hash table based on the words in the message.
-		messages.createHashTables(args[1]);
-		
+
+
+        // TODO: uncomment this
+        //messages.createHashTables(args[1]);
+
+
 		//Find the spam messages- Use the path of the spam_words file.
 		//	(The Messages.Messages object should use the file path to create the Spam.Spam array.
 		//	Then, it will determine for each message if it is spam, using the Spam.Spam array,
 		//	the btree and the hash table of the message).
-		String spamMessages = messages.findSpams(System.getProperty("user.dir")+"/spam_words.txt", btree);
-		
+
+
+        // TODO: uncomment this
+        //String spamMessages = messages.findSpams(System.getProperty("user.dir")+"/spam_words.txt", btree);
+
+
 		//create a file with the program's expected output
-		createOutputFile(treeLayout, spamMessages, System.getProperty("user.dir")+"/output.txt");
+
+        // TODO: uncomment this
+        //createOutputFile(treeLayout, spamMessages, System.getProperty("user.dir")+"/output.txt");
 			    
 	}
 

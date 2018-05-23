@@ -26,7 +26,9 @@ public class Messages implements Iterable{
 
             @Override
             public boolean hasNext() {
-                return (this.curretnIndex < this.size -1 );
+                //return (this.curretnIndex < this.size -1 );
+                // TODO i dont know whats happenning
+                return false;
             }
 
             @Override
