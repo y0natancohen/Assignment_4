@@ -33,9 +33,9 @@ public class BTree {
         String[] splitted = friends.split("\n");
         for (int i = 0; i < splitted.length; i++){
 
-            // TODO: can we insert strings instead
-            // TODO: of ints to the tree and sort
-            // TODO: by Strings somehow?
+            // TODO: Java man can we insert strings instead
+            // TODO: of ints into the tree and sort
+            // TODO: by Strings somehow? need solving
 
             int key = Utils.stringToInt(splitted[i]);
             this.insert(key);
