@@ -13,10 +13,10 @@ public class BTree {
     public BTreeNode root;
 
     public BTree(int t) {
-        this.root = new BTreeNode(t, true);
         BTree.t = t;
         maxLength = (2 * t) - 1;
         minLength = t - 1;
+        this.root = new BTreeNode(maxLength, true);
     }
 
 
@@ -30,13 +30,13 @@ public class BTree {
         StringJoiner sj = new StringJoiner("#");
 
         int h = height(this.root);
-        System.out.println("doing root lvl: " + h);
+        // System.out.println("doing root lvl: " + h);
 
         sj.add(_nodeToString(this.root));
         for (int lvl = h - 1; lvl >= 0; lvl--){
-            System.out.println("doing lvl: " + lvl);
+            // System.out.println("doing lvl: " + lvl);
             sj.add(_levelToString(this.root, lvl));
-            System.out.println("");
+            // System.out.println("");
 
         }
 
@@ -48,12 +48,12 @@ public class BTree {
     private static String _levelToString(BTreeNode node, int height){
         int curr = height(node);
 
-        System.out.println("curr" + curr);
-        System.out.println("wanted" + height);
+        // System.out.println("curr" + curr);
+        // System.out.println("wanted" + height);
 
         if (curr == height + 1){
             // add the sons of that level
-            System.out.println("adding the sons at level " + (curr-1));
+            // System.out.println("adding the sons at level " + (curr-1));
 
 //        if (height(node) == height + 1){
 
@@ -66,7 +66,7 @@ public class BTree {
 
         } else{
             // go deeper
-            System.out.println("going from lvl " + curr + " to lvl " + (curr - 1 ));
+            // System.out.println("going from lvl " + curr + " to lvl " + (curr - 1 ));
 
             StringJoiner sj = new StringJoiner("^");
             for (int childIndex = 0; childIndex < node.getNumberOfKeys() + 1; childIndex ++) {
@@ -79,14 +79,14 @@ public class BTree {
 
     private static String _nodeToString(BTreeNode node){
         StringJoiner sj = new StringJoiner(",");
-        System.out.println("inside _nodeToString, node.getNumberOfKeys=" + node.getNumberOfKeys());
+        // System.out.println("inside _nodeToString, node.getNumberOfKeys=" + node.getNumberOfKeys());
 
         for (int keyIndex = 0; keyIndex < node.getNumberOfKeys(); keyIndex++){
-            System.out.println("adding key: " + node.getNthkey(keyIndex));
+            // System.out.println("adding key: " + node.getNthkey(keyIndex));
             sj.add(node.getNthkey(keyIndex));
             // TODO: change the tree to strings with "abc".compareTo("abd")
         }
-        return sj.toString();
+        return sj.toString() + node.getNumberOfKeys();
     }
 
 
@@ -114,17 +114,21 @@ public class BTree {
 //    private void insert(String key){
     // TODO: change to private after testing
     public void insert(String key){
+        System.out.println("starting to insert "+ key);
         BTreeNode currRoot = this.root;
-        if (currRoot.getNumberOfKeys() == t){
+        if (currRoot.getNumberOfKeys() == maxLength){
+            System.out.println("root is full, splitting root");
             BTreeNode newRoot = new BTreeNode(maxLength, false);
             this.root = newRoot;
             newRoot.setNthChild(0, currRoot);
-            splitChild(newRoot, 1);
+            splitChild(newRoot, 0);
             insertNonFull(newRoot, key);
         }
         else{
             insertNonFull(currRoot, key);
         }
+        System.out.println("finished inserting "+ key);
+        System.out.println("");
     }
 
     private static void insertNonFull(BTreeNode node, String key){
@@ -138,21 +142,27 @@ public class BTree {
     }
 
     private static void _insertToMiddleNode(int i, String key, BTreeNode node){
+        System.out.println("inserting " + key + " into a son of middle node- "+ _nodeToString(node));
         while (i >= 0 && Utils.isBefore(key, node.getNthkey(i))){
             i--;
         }
         int nodeToInsertIndex = i + 1;
         BTreeNode nodeToInsert = node.getNthChild(nodeToInsertIndex);
+        System.out.println("inserting into son num "+nodeToInsertIndex);
         if (nodeToInsert.getNumberOfKeys() >= maxLength){
+            System.out.println("son num "+nodeToInsertIndex+" is full, splitting");
+
             splitChild(node, nodeToInsertIndex);
             if (Utils.isAfter(key, node.getNthkey(i + 1))){
                 nodeToInsert = node.getNthChild(nodeToInsertIndex + 1);
             }
         }
         insertNonFull(nodeToInsert, key);
+        System.out.println("new middle node is- "+ _nodeToString(node));
     }
 
     private static void _insertToLeaf(int i, String key, BTreeNode node){
+        System.out.println("inserting " + key + " into leaf node- "+ _nodeToString(node));
         while (i >= 0 && Utils.isBefore(key, node.getNthkey(i))){
             String currKey = node.getNthkey(i);
             node.setNthkey(i + 1, currKey);
@@ -160,19 +170,30 @@ public class BTree {
         }
         node.setNthkey(i + 1, key);
         node.setNumberOfKeys(node.getNumberOfKeys() + 1);
+        System.out.println("new leaf node is- "+ _nodeToString(node));
     }
 
     private static void splitChild(BTreeNode parent, int childToSplitIndex){
+        System.out.println("splitting the " + childToSplitIndex + "th child of" + _nodeToString(parent));
         BTreeNode brother = parent.getNthChild(childToSplitIndex);
         BTreeNode newBrother = new BTreeNode(maxLength, brother.getIsLeaf());
 
+        System.out.println("giving pointers and keys from left to new brother");
         _giveKeysPointersFromLeft(brother, newBrother);
+        System.out.println("new brother is now- "+_nodeToString(newBrother));
 
+        System.out.println("deleting pointers and keys from old brother");
         _deleteIrrelevantKeysPointers(brother);
+        System.out.println("old brother is now- "+_nodeToString(brother));
 
+        System.out.println("offseting pointers and keys from parent and inserting newBrother pointer");
         _offsetKeysPointers(newBrother, parent, childToSplitIndex);
+        System.out.println("parent is now- "+_nodeToString(parent));
 
+        System.out.println("transferring biggesr value from brother to parent");
         _transferBiggestValue(brother, parent, childToSplitIndex);
+        System.out.println("parent is now- "+_nodeToString(parent));
+        System.out.println("brother is now- "+_nodeToString(brother));
 
     }
 

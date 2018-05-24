@@ -60,8 +60,8 @@ public class BTreeNode {
         this.isLeaf = isLeaf;
 //        this.maxLength = this.t * 2 - 1;
 //        this.minLength = this.t - 1;
-        this.sons = new BTreeNode[maxLength];
-        this.keys = new String[maxLength + 1];
+        this.sons = new BTreeNode[maxLength + 1];
+        this.keys = new String[maxLength];
 
 
     }
@@ -71,6 +71,10 @@ public class BTreeNode {
     }
 
     public void setNthChild(int n , BTreeNode node){
+        // System.out.println("setNthChild("+n+", something)");
+//        System.out.println("this.sons="+this.sons.toString());
+        // System.out.println("this.sons.length="+this.sons.length);
+
         this.sons[n] = node;
     }
 

@@ -8,7 +8,20 @@ public class test {
 
     public static void main(String[] args){
 
+        testBFS();
+        testTree();
+
+
+
+
+
+
+    }
+
+    public static void testTree(){
+
         int t = 2;
+        BTree tree = new BTree(t);
 
         String[] friends = new String[11];
         friends[0] = "Han_Solo & Chewbacca";
@@ -23,6 +36,14 @@ public class test {
         friends[9] = "Spongebob & Patrick";
         friends[10] = "Simon & Garfunkel";
 
+        for (int i = 0; i < friends.length; i++){
+            tree.insert(friends[i]);
+        }
+        System.out.println("tree looks like this:");
+        System.out.println(tree.toString());
+    }
+    public static void testBFS(){
+        int t = 2;
 
         BTreeNode a = new BTreeNode((2*t)-1, true);
         a.setNthkey(0, "a");
@@ -78,14 +99,17 @@ public class test {
 //        for (int i = 0; i < 10; i++){
 //            System.out.println(i);
 //        }
+        String out = tree.toString().toUpperCase();
+        String expected = "Z,W,R|K|G^C|A#M,H|B#D";
+        expected = new StringBuilder(expected).reverse().toString();
 
-        System.out.println("what came out:    " + tree.toString().toUpperCase());
-
-        System.out.print("what is expected: ");
-        System.out.println(new StringBuilder("Z,W,R|K|G^C|A#M,H|B#D").reverse().toString());
-
-
-
+        if (out.equals(expected)){
+            System.out.println("all good");
+        }else {
+            System.out.println("what came out:    " + out);
+            System.out.print("what is expected: ");
+            System.out.println();
+        }
     }
 
 }
