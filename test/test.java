@@ -2,20 +2,86 @@ package test;
 
 import src.BTree.BTree;
 import src.BTree.BTreeNode;
+import src.Messages.Message;
+import src.Messages.Messages;
 
 public class test {
 
 
     public static void main(String[] args){
-
+        System.out.println("---------------------------------------------");
         testBFS();
+        System.out.println("---------------------------------------------");
         testTree();
+        System.out.println("---------------------------------------------");
+        testMessages1();
+        System.out.println("---------------------------------------------");
+        testMessages2();
+        System.out.println("---------------------------------------------");
 
 
 
 
 
+    }
 
+    public static void testMessages1(){
+        Message m1 = new Message("1", "2", "message 1");
+        Message m2 = new Message("2", "1", "message 2");
+        Message m3 = new Message("1", "2", "message 3");
+        Messages messages = new Messages();
+        messages.add(m1);
+        messages.add(m2);
+        messages.add(m3);
+
+        System.out.println("");
+        Message head = messages.getHead();
+        System.out.println(head.getNext());
+        System.out.println(head.getNext().getNext());
+        System.out.println(head.getNext().getNext().getNext());
+        System.out.println("");
+
+        for (Message message:messages) {
+
+            System.out.println(message);
+        }
+    }
+
+    public static void testMessages2(){
+
+        String[] m1 = new String[3];
+        m1[0] = "a";
+        m1[1] = "b";
+        m1[2] = "message 1";
+
+        String[] m2 = new String[3];
+        m2[0] = "a";
+        m2[1] = "b";
+        m2[2] = "message 2";
+
+        String[] m3 = new String[3];
+        m3[0] = "a";
+        m3[1] = "b";
+        m3[2] = "message 3";
+
+        Messages messages = new Messages();
+        String[][] arrayOfparsed = new String[3][3];
+        arrayOfparsed[0] = m1;
+        arrayOfparsed[1] = m2;
+        arrayOfparsed[2] = m3;
+        messages.generateMessages(arrayOfparsed);
+
+        System.out.println("");
+        Message head = messages.getHead();
+        System.out.println(head.getNext());
+        System.out.println(head.getNext().getNext());
+        System.out.println(head.getNext().getNext().getNext());
+        System.out.println("");
+
+        for (Message message:messages) {
+
+            System.out.println(message);
+        }
     }
 
     public static void testTree(){

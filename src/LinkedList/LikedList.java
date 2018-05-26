@@ -10,9 +10,9 @@ public class LikedList {
         this.tail = null;
     }
 
-    public void add(int data){
+    public void add(String data){
         LinkedListNode node = new LinkedListNode(data);
-        add(node);
+        this.add(node);
     }
 
     public void add(LinkedListNode node){
@@ -23,14 +23,23 @@ public class LikedList {
 
     }
 
-    public Boolean search(int x){
+    public Boolean search(String str){
         LinkedListNode tmp = this.head;
         while (tmp != null){
-            if (tmp.getData() == x){
+            if (tmp.getData() == str){
                 return true;
             }else{
                 tmp = tmp.getNext();
             }
         }
+        return false;
+    }
+
+    public LinkedListNode getHead() {
+        return head;
+    }
+
+    public void setHead(LinkedListNode head) {
+        this.head = head;
     }
 }

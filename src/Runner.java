@@ -1,7 +1,6 @@
 package src;
 
 import src.BTree.BTree;
-import src.Messages.Messages;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,12 +25,14 @@ public class Runner {
 		String treeLayout = btree.toString();
 		
 		// Create a Messages.Messages object based on the messages file.
-		Messages messages = createArrayOfMessages();
+
+        // TODO: romove comment
+        //Messages messages = createArrayOfMessages();
 
 		//For each message, create a hash table based on the words in the message.
 
 
-        // TODO: uncomment this
+        // TODO: uncomment
         //messages.createHashTables(args[1]);
 
 
@@ -55,11 +56,12 @@ public class Runner {
 
 	// Create a Messages.Messages object based on the messages file.
 	// Creates a Messages.Messages object and updates its' Messages.Message array using the messages file.
-	private static Messages createArrayOfMessages() {
-		Messages messages = new Messages();
-		messages.generateMessages(System.getProperty("user.dir")+"/messages.txt");
-		return messages;
-	}
+//tODO: uncomment
+//	private static Messages createArrayOfMessages() {
+//		Messages messages = new Messages();
+//		messages.generateMessages(System.getProperty("user.dir")+"/messages.txt");
+//		return messages;
+//	}
 
 
 

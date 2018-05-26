@@ -4,17 +4,17 @@ public class LinkedListNode {
 
     private LinkedListNode next;
     private LinkedListNode prev;
-    private int data;
+    private String data;
 
-    public LinkedListNode(int data){
+    public LinkedListNode(String data){
         this.data = data;
     }
 
-    public int getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(int data) {
+    public void setData(String data) {
         this.data = data;
     }
 
