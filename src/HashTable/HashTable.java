@@ -19,6 +19,12 @@ public class HashTable {
         }
     }
 
+    public int count(String str){
+        int indexToSearch = this.hashFunction(str);
+        HashList listToSearch = this.arr[indexToSearch];
+        return listToSearch.count(str);
+    }
+
     public Boolean search(String str){
         int indexToSearch = this.hashFunction(str);
         HashList listToSearch = this.arr[indexToSearch];

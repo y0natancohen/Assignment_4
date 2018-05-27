@@ -18,6 +18,7 @@ public class Message {
         this.from = from;
         this.content = content;
         this.next = null;
+        this.hashTable = null;
     }
 
     public String toString() {
@@ -35,6 +36,14 @@ public class Message {
 
     public void setPrev(Message prev) {
         this.prev = prev;
+    }
+
+    public HashTable getHashTable() {
+        return hashTable;
+    }
+
+    public void setHashTable(HashTable hashTable) {
+        this.hashTable = hashTable;
     }
 
     public String getContent() {

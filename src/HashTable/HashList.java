@@ -24,4 +24,16 @@ public class HashList {
         }
         return false;
     }
+
+    public int count(String str){
+        int counter = 0;
+        HashListElement curr = this.head;
+        while (curr != null) {
+            if (curr.getData().equals(str)) {
+                counter++;
+            }
+            curr = curr.getNext();
+        }
+        return counter;
+    }
 }

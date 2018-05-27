@@ -1,6 +1,7 @@
 package src;
 
 import src.BTree.BTree;
+import src.Messages.Messages;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,14 +27,12 @@ public class Runner {
 		
 		// Create a Messages.Messages object based on the messages file.
 
-        // TODO: romove comment
-        //Messages messages = createArrayOfMessages();
+        Messages messages = createArrayOfMessages();
 
 		//For each message, create a hash table based on the words in the message.
 
 
-        // TODO: uncomment
-        //messages.createHashTables(args[1]);
+        messages.createHashTables(args[1]);
 
 
 		//Find the spam messages- Use the path of the spam_words file.
@@ -56,12 +55,11 @@ public class Runner {
 
 	// Create a Messages.Messages object based on the messages file.
 	// Creates a Messages.Messages object and updates its' Messages.Message array using the messages file.
-//tODO: uncomment
-//	private static Messages createArrayOfMessages() {
-//		Messages messages = new Messages();
-//		messages.generateMessages(System.getProperty("user.dir")+"/messages.txt");
-//		return messages;
-//	}
+	private static Messages createArrayOfMessages() {
+		Messages messages = new Messages();
+		messages.generateMessages(System.getProperty("user.dir")+"/messages.txt");
+		return messages;
+	}
 
 
 

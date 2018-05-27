@@ -1,5 +1,6 @@
 package src.Messages;
 
+import src.HashTable.HashTable;
 import src.Utils;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -18,8 +19,21 @@ public class Messages implements Iterable<Message>, Iterator<Message> {
     }
 
 
-    public void createHashTables(int size){
+    public void createHashTables(String _size){
+        int size = Integer.parseInt(_size);
+        for (Message message: this){
+            HashTable hashTable = new HashTable(size);
+            String[] words = message.getContent().split("\\s+");
 
+            for (String word: words){
+                hashTable.insert(word);
+            }
+
+            for (String word: words){
+                int frequency = hashTable.count(word);
+                //TODO: nee dto decide how to save this
+            }
+        }
     }
 
 
