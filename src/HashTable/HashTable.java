@@ -41,6 +41,7 @@ public class HashTable {
         for (int i=0; i < str.length(); i++){
             char character = str.charAt(i);
             int intCharacter = (int) character;
+            //TODO: change this to ASCII base instead of 10-base
             master = master + ((long) (intCharacter * Math.pow(10, i)));
 
         }
