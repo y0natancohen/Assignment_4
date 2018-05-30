@@ -2,7 +2,7 @@ package src.Spam;
 
 import java.util.Iterator;
 
-public class Spams implements Iterable {
+public class Spams implements Iterable<Spam> {
     private Spam[] spamMessages;
 
     public Spams(int spamWordsSize) {
@@ -14,11 +14,11 @@ public class Spams implements Iterable {
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<Spam> iterator() {
         return new SpamWordsIterator();
     }
 
-    private class SpamWordsIterator implements Iterator {
+    private class SpamWordsIterator implements Iterator<Spam> {
         int index;
 
         SpamWordsIterator() {

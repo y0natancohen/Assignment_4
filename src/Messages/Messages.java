@@ -6,11 +6,12 @@ import src.InputHandlers.IInputHandler;
 import src.InputHandlers.MessageInputHandler;
 import src.InputHandlers.SpamInputHandler;
 import src.LinkedList.LinkedList;
+import src.Spam.Spam;
 import src.Spam.Spams;
 
 import java.util.Iterator;
 
-public class Messages implements Iterable {
+public class Messages implements Iterable<Message> {
 
     private Message[] messages;
 
@@ -55,7 +56,7 @@ public class Messages implements Iterable {
     }
 
     public Iterator<Message> iterator() {
-        return new MessagesIterator<>();
+        return new MessagesIterator();
     }
 
 
@@ -68,11 +69,11 @@ public class Messages implements Iterable {
     public String findSpams(String s, BTree btree) {
         IInputHandler<Spams> inputHandler = new SpamInputHandler<>();
         Spams spams = inputHandler.readFile(s);
-
+        for(Spam ss : spams)
         return null;
     }
 
-    private class MessagesIterator<T> implements Iterator<Message> {
+    private class MessagesIterator implements Iterator<Message> {
         int index;
 
         MessagesIterator() {
