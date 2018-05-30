@@ -1,28 +1,28 @@
 package src.LinkedList;
 
-public class LinkedListNode {
+public class LinkedListNode<T> {
 
     private LinkedListNode next;
     private LinkedListNode prev;
-    private String data;
+    private T data;
 
-    public LinkedListNode(String data){
+    LinkedListNode(T data){
         this.data = data;
     }
 
-    public String getData() {
+    T getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(T data) {
         this.data = data;
     }
 
-    public LinkedListNode getNext() {
+    LinkedListNode<T> getNext() {
         return next;
     }
 
-    public void setNext(LinkedListNode next) {
+    void setNext(LinkedListNode next) {
         this.next = next;
     }
 
@@ -30,7 +30,7 @@ public class LinkedListNode {
         return prev;
     }
 
-    public void setPrev(LinkedListNode prev) {
+    void setPrev(LinkedListNode prev) {
         this.prev = prev;
     }
 }

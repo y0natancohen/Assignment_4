@@ -1,142 +1,100 @@
 package src.Messages;
 
+import src.BTree.BTree;
 import src.HashTable.HashTable;
-import src.Utils;
+import src.InputHandlers.IInputHandler;
+import src.InputHandlers.MessageInputHandler;
+import src.InputHandlers.SpamInputHandler;
+import src.LinkedList.LinkedList;
+import src.Spam.Spams;
+
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
-public class Messages implements Iterable<Message>, Iterator<Message> {
+public class Messages implements Iterable {
 
-    private Message head;
-    private Message tail;
-    private Message current;
+    private Message[] messages;
 
-    public Messages() {
-        // create an empty message because I hate Java
-        head = new Message("", "", "");
-        current = head;
-        tail = head;
+    public Message[] getMessages() {
+        return messages;
     }
 
+    public Messages() {
 
-    public void createHashTables(String _size){
+    }
+
+    public void createHashTables(String _size) {
         int size = Integer.parseInt(_size);
-        for (Message message: this){
+        for (Message message : this) {
             HashTable hashTable = new HashTable(size);
             String[] words = message.getContent().split("\\s+");
 
-            for (String word: words){
+            for (String word : words) {
                 hashTable.insert(word);
             }
 
-            for (String word: words){
+            for (String word : words) {
                 int frequency = hashTable.count(word);
                 //TODO: nee dto decide how to save this
             }
         }
     }
 
-
-    // TODO: romove this. only for testing
-    public void generateMessages(String[][] arrayOfParsed){
-        for(String[] parsed :arrayOfParsed) {
-            Message message = new Message(parsed[0], parsed[1], parsed[2]);
-            this.add(message);
+    private void rawMessagesToArray(LinkedList<Message> rawMessages) {
+        messages = new Message[rawMessages.getSize()];
+        int i = 0;
+        for (Message m : rawMessages) {
+            messages[i] = m;
+            i++;
         }
     }
 
+    public void generateMessages(String filePath) {
+        IInputHandler<LinkedList<Message>> inputHandler = new MessageInputHandler<>();
+        rawMessagesToArray(inputHandler.readFile(filePath));
 
-    public void generateMessages(String filePath){
-        String txt = Utils.readFile(filePath);
-        String[] rawMessages = txt.split("#");
-        for(String rawMessage:rawMessages){
-            String[] parsed = _parse(rawMessage);
-            Message message = new Message(parsed[0], parsed[1], parsed[2]);
-            this.add(message);
-        }
     }
 
-    private static String[] _parse(String rawMessage){
-        // TODO: all the fucking parsing
-        return new String[3];
-    }
-
-
-    // The next three methods implement Iterator.
-    public boolean hasNext() {
-        return (current.getNext() != null);
-    }
-
-    public Message next() {
-        if (current.getNext() == null){
-            throw new NoSuchElementException();
-        }
-        current = current.getNext();
-        return current;
-    }
-
-    public void remove() {
-        throw new UnsupportedOperationException();
-    }
-
-    // This method implements Iterable.
     public Iterator<Message> iterator() {
-        return this;
+        return new MessagesIterator<>();
     }
 
 
-    public void add(Message message){
-        message.setPrev(tail);
-        tail.setNext(message);
-        tail = message;
+    /***
+     *
+     * @param s - path to spam words file
+     * @param btree - friendships tree
+     * @return the indexes of the spam messages seperated by comma as a string
+     */
+    public String findSpams(String s, BTree btree) {
+        IInputHandler<Spams> inputHandler = new SpamInputHandler<>();
+        Spams spams = inputHandler.readFile(s);
 
+        return null;
     }
 
-    public Message getHead() {
-        return head;
+    private class MessagesIterator<T> implements Iterator<Message> {
+        int index;
+
+        MessagesIterator() {
+            index = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return messages[index] != null;
+        }
+
+        @Override
+        public Message next() {
+            if (!hasNext()) {
+                throw new RuntimeException("No Elements in Sequence!");
+            }
+            Message res = messages[index];
+            index++;
+            return res;
+        }
     }
 
-    public Message getCurrent() {
-        return current;
-    }
 }
 
-//public class Messages implements Iterable{
-//
-//
-//    // TODO: Java man make this iterator shit work
-//    // TODO: i hate it i want to shoot irena revayev and tzachi
-//
-//    private int size;
-//    private int curretnIndex;
-//    private Message[] messages;
-//
-//    public Messages(){
-//        this.size = 0;
-//        this.curretnIndex = 0;
-//        this.messages = new Message[0];
-//    }
-//
-//    @Override
-//    public Iterator iterator() {
-//
-//        return new Iterator() {
-//
-//            @Override
-//            public boolean hasNext() {
-//                //return (this.curretnIndex < this.size -1 );
-//                // TODO i dont know whats happenning
-//                return false;
-//            }
-//
-//            @Override
-//            public Object next() {
-//                return null;
-//            }
-//        };
-//    }
-//
-//
-//
-//
-//}
+

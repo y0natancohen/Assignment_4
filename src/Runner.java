@@ -42,13 +42,13 @@ public class Runner {
 
 
         // TODO: uncomment this
-        //String spamMessages = messages.findSpams(System.getProperty("user.dir")+"/spam_words.txt", btree);
+        String spamMessages = messages.findSpams(System.getProperty("user.dir")+"/spam_words.txt", btree);
 
 
 		//create a file with the program's expected output
 
         // TODO: uncomment this
-        //createOutputFile(treeLayout, spamMessages, System.getProperty("user.dir")+"/output.txt");
+        createOutputFile(treeLayout, spamMessages, System.getProperty("user.dir")+"/output.txt");
 			    
 	}
 
