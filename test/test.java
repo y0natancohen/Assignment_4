@@ -4,6 +4,8 @@ import src.BTree.BTree;
 import src.BTree.BTreeNode;
 import src.Messages.Message;
 import src.Messages.Messages;
+import src.HashTable.HashTable;
+
 
 public class test {
 
@@ -18,8 +20,8 @@ public class test {
         System.out.println("---------------------------------------------");
         testMessages2();
         System.out.println("---------------------------------------------");
-
-
+        testHash();
+        System.out.println("---------------------------------------------");
 
 
 
@@ -108,6 +110,22 @@ public class test {
         System.out.println("tree looks like this:");
         System.out.println(tree.toString());
     }
+
+    public static void testHash(){
+        String[] arr = new String[4];
+        arr[0] = "sadasdfsdfgscf423";
+        arr[1] = "kdjfo m nj 854j$^%^&";
+        arr[2] = "asdasdasdasdda";
+        arr[3] = "32s1df@D%G&H* G Y";
+
+        HashTable h = new HashTable(50);
+
+        for (String s: arr){
+            System.out.println("hash1 = " + h.hashFunction(s));
+            System.out.println("hash2 = " + h.hashFunction1(s));
+        }
+    }
+
     public static void testBFS(){
         int t = 2;
 

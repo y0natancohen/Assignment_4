@@ -1,5 +1,8 @@
 package src.BTree;
+
+import com.sun.xml.internal.stream.buffer.stax.StreamReaderBufferCreator;
 import src.Utils;
+import src.Queue.Queue;
 
 import java.util.StringJoiner;
 
@@ -26,7 +29,31 @@ public class BTree {
         // TODO: Java man- can we overload like this?
      }
 
+//     private String getSymbol(BTreeNode first, BTreeNode second){
+//        if first.
+//     }
+
     public String toString(){
+        //TODO: this is now O(nlog(n)). change to O(n) if we
+        //TODO: time, using a queue.
+//        StringBuilder sb = new StringBuilder();
+//        BTreeNode prev = this.root;
+//
+//        Queue q = new Queue();
+//        q.enqueue(this.root);
+//        while (!q.isEmpty()){
+//            BTreeNode first = q.getFirst();
+//            for (BTreeNode son: first.getSons()){
+//                if (son != null){
+//                    q.enqueue(son);
+//                }
+//            }
+//            sb.append(getSymbol(prev, first));
+//            sb.append(first.toSring());
+//        }
+//        return sb.toString();
+
+        // old implementation from here down1
         StringJoiner sj = new StringJoiner("#");
 
         int h = height(this.root);

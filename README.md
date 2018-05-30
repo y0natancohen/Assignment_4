@@ -1,2 +1,2 @@
 # Assignment_4
-data structure class, Ben Gurion University
+node structure class, Ben Gurion University
