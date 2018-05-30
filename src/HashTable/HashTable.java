@@ -31,7 +31,24 @@ public class HashTable {
         return listToSearch.search(str);
     }
 
-    private int hashFunction(String str){
+    // TODO: change private
+    public int hashFunction(String str){
+        return (int) this._rollingHash(str);
+    }
+
+    private long _rollingHash(String str){
+        int firstIntCharacter = (int) str.charAt(0);
+        long master = (long) firstIntCharacter % this.arr.length; // this is An of the polynome
+
+        for (int i=1; i < str.length(); i++){ // this is An-1 to A1 of the polynome
+            int intCharacter = (int) str.charAt(i);
+            master = (intCharacter + master*256) % this.arr.length;
+        }
+        return master;
+    }
+
+    // TODO: change private
+    public int hashFunction1(String str){
         // TODO: figure out a better hash function
         return (int) this._strToNum(str) % this.arr.length;
     }
@@ -41,8 +58,7 @@ public class HashTable {
         for (int i=0; i < str.length(); i++){
             char character = str.charAt(i);
             int intCharacter = (int) character;
-            //TODO: change this to ASCII base instead of 10-base
-            master = master + ((long) (intCharacter * Math.pow(10, i)));
+            master = master + ((long) (intCharacter * Math.pow(256, i)));
 
         }
         return master;

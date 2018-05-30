@@ -1,5 +1,7 @@
 package src.BTree;
 
+import java.util.StringJoiner;
+
 public class BTreeNode {
 
 //    private int t;
@@ -12,6 +14,11 @@ public class BTreeNode {
     public BTreeNode[] sons;
     public String[] keys;
     public int numberOfKeys = 0;
+
+
+    //TODO: think how to implement these two
+    private BTreeNode parent;
+    private BTreeNode level;
 
     //    private int maxLength;
 //    private int minLength;
@@ -93,6 +100,17 @@ public class BTreeNode {
 
     public BTreeNode[] getSons(){
         return this.sons;
+    }
+
+    public String toSring(){
+        StringJoiner sj = new StringJoiner(",");
+        for (String key:this.keys){
+            if (!key.equals("")) {
+                sj.add(key);
+            }
+        }
+        return sj.toString();
+
     }
 
 
