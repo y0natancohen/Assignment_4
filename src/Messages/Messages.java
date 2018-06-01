@@ -23,19 +23,19 @@ public class Messages implements Iterable<Message> {
 
     }
 
+    /**
+     * Initiate hash table for each message representing
+     * its content
+     * @param _size - the size of the hash table to initiate
+     */
     public void createHashTables(String _size) {
         int size = Integer.parseInt(_size);
         for (Message message : this) {
             HashTable hashTable = new HashTable(size);
             String[] words = message.getContent().split("\\s+");
-
             for (String word : words) {
                 hashTable.insert(word);
-            }
-
-            for (String word : words) {
-                int frequency = hashTable.count(word);
-                //TODO: nee dto decide how to save this
+                message.setTable(hashTable);
             }
         }
     }
@@ -52,7 +52,6 @@ public class Messages implements Iterable<Message> {
     public void generateMessages(String filePath) {
         IInputHandler<LinkedList<Message>> inputHandler = new MessageInputHandler<>();
         rawMessagesToArray(inputHandler.readFile(filePath));
-
     }
 
     public Iterator<Message> iterator() {
@@ -64,12 +63,24 @@ public class Messages implements Iterable<Message> {
      *
      * @param s - path to spam words file
      * @param btree - friendships tree
-     * @return the indexes of the spam messages seperated by comma as a string
+     * @return the indexes of the spam messages separated by comma
      */
     public String findSpams(String s, BTree btree) {
         IInputHandler<Spams> inputHandler = new SpamInputHandler<>();
         Spams spams = inputHandler.readFile(s);
-        for(Spam ss : spams)
+        /*
+        * for each message
+        *   1. check if from & to are friends (search bTree)
+        *   if not
+        *       sum up total word count
+        *       2. for each spam word
+        *           2.1 find in message content hash
+        *           2.2 calc threshold percentage by total word count,
+        *               current count in message against spam threshold field
+        *           2.3 if threshold reached save message index to returned as "Spamed"
+        *   3. return string of "Spamed" messages indexes
+        * */
+
         return null;
     }
 

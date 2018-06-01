@@ -41,13 +41,11 @@ public class Runner {
 		//	the btree and the hash table of the message).
 
 
-        // TODO: uncomment this
         String spamMessages = messages.findSpams(System.getProperty("user.dir")+"/spam_words.txt", btree);
 
 
 		//create a file with the program's expected output
 
-        // TODO: uncomment this
         createOutputFile(treeLayout, spamMessages, System.getProperty("user.dir")+"/output.txt");
 			    
 	}

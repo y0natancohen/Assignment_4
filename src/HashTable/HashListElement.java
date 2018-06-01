@@ -1,11 +1,23 @@
 package src.HashTable;
 
 public class HashListElement {
-
     private String data;
     private HashListElement next;
+    private int count;
 
-    public HashListElement(String data){
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public HashListElement(String data) {
+        this.data = data;
+    }
+
+    public HashListElement(String data, int count) {
         this.data = data;
     }
 

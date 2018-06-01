@@ -1,31 +1,41 @@
 package src.HashTable;
 
 public class HashList {
-
     private HashListElement head;
 
-    public HashList(){
+    public HashList() {
         this.head = null;
     }
 
-    public void insert(String str){
-        HashListElement element = new HashListElement(str);
-        element.setNext(this.head);
-        this.head = element;
+    /**
+     * Inserts a new word to hash table
+     * if item already exists increase word count
+     * @param wordToAdd - the word to add
+     */
+    public void insert(String wordToAdd) {
+        HashListElement elementToInsert = search(wordToAdd);
+        if (elementToInsert == null) {
+            HashListElement element = new HashListElement(wordToAdd, 0);
+            element.setNext(this.head);
+            this.head = element;
+        } else {
+            elementToInsert.setCount(elementToInsert.getCount() + 1);
+        }
     }
 
-    public Boolean search(String str){
+    public HashListElement search(String str) {
         HashListElement curr = this.head;
-        while (curr != null){
-            if (curr.getData().equals(str)){
-                return true;
+        while (curr != null) {
+            if (curr.getData().equals(str)) {
+                return curr;
             }
             curr = curr.getNext();
         }
-        return false;
+        return null;
     }
 
-    public int count(String str){
+    //todo:elad redundant?
+    public int count(String str) {
         int counter = 0;
         HashListElement curr = this.head;
         while (curr != null) {
