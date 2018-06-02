@@ -25,7 +25,7 @@ public class HashTable {
         return listToSearch.count(str);
     }
 
-    public Boolean search(String str) {
+    public HashListElement search(String str) {
         int indexToSearch = this.hashFunction(str);
         HashList listToSearch = this.arr[indexToSearch];
         return listToSearch.search(str);

@@ -1,8 +1,6 @@
 package src.BTree;
 
-import com.sun.xml.internal.stream.buffer.stax.StreamReaderBufferCreator;
 import src.Utils;
-import src.Queue.Queue;
 
 import java.util.StringJoiner;
 
@@ -283,5 +281,17 @@ public class BTree {
 
         brother.setNumberOfKeys(brother.getNumberOfKeys() - 1);
         parent.setNumberOfKeys(parent.getNumberOfKeys() + 1);
+    }
+
+    //todo:johny
+
+    /**
+     * Search a key in the tree
+     * @param value - value comes as ("from&to") string
+     *              should search for the symmetric key (to&from) as well
+     * @return true if found
+     */
+    public boolean search(String value) {
+        return false;
     }
 }

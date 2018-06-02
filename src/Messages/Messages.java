@@ -26,6 +26,7 @@ public class Messages implements Iterable<Message> {
     /**
      * Initiate hash table for each message representing
      * its content
+     *
      * @param _size - the size of the hash table to initiate
      */
     public void createHashTables(String _size) {
@@ -60,28 +61,40 @@ public class Messages implements Iterable<Message> {
 
 
     /***
+     * for each message
+     * 1. check if from & to are friends (search bTree)
+     * if not
+     *  sum up total word count
+     *  2. for each spam word
+     *      2.1 find in message content hash
+     *      2.2 calc threshold percentage by total word count,
+     *          current count in message against spam threshold field
+     *      2.3 if threshold reached save message index to returned as "Spamed"
+     * 3. return string of "Spamed" messages indexes
      *
      * @param s - path to spam words file
      * @param btree - friendships tree
      * @return the indexes of the spam messages separated by comma
      */
     public String findSpams(String s, BTree btree) {
+        StringBuilder spamedMessagesIndexes = new StringBuilder();
         IInputHandler<Spams> inputHandler = new SpamInputHandler<>();
         Spams spams = inputHandler.readFile(s);
-        /*
-        * for each message
-        *   1. check if from & to are friends (search bTree)
-        *   if not
-        *       sum up total word count
-        *       2. for each spam word
-        *           2.1 find in message content hash
-        *           2.2 calc threshold percentage by total word count,
-        *               current count in message against spam threshold field
-        *           2.3 if threshold reached save message index to returned as "Spamed"
-        *   3. return string of "Spamed" messages indexes
-        * */
-
-        return null;
+        int messageIndex = 0;
+        for (Message message : this) {
+            if (btree.search(message.toString())) {
+                int messageTotalWordCount = message.getContent().split(" ").length;
+                for (Spam spam : spams) {
+                    int spamCountInMessage = message.getTable().search(spam.getSpamWord()).getCount();
+                    int foundThreshold = (spamCountInMessage / messageTotalWordCount) * 100;
+                    if (foundThreshold >= spam.getThreshold()) {
+                        spamedMessagesIndexes.append(messageIndex).append(",");
+                    }
+                }
+            }
+            messageIndex++;
+        }
+        return spamedMessagesIndexes.toString();
     }
 
     private class MessagesIterator implements Iterator<Message> {

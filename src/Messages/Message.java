@@ -46,4 +46,8 @@ public class Message {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String toString() {
+        return from + "&" + to;
+    }
 }
