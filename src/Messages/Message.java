@@ -1,5 +1,6 @@
 package src.Messages;
 
+import src.BTree.BTree;
 import src.HashTable.HashTable;
 
 public class Message {
@@ -8,11 +9,22 @@ public class Message {
     private String from;
     private String content;
     private HashTable table;
+    private int contentLength;
 
     public Message(String from, String to, String content) {
         this.to = to;
         this.from = from;
         this.content = content;
+        this.table = null;
+        this.contentLength = 0;
+    }
+
+    public void setContentLength(int contentLength) {
+        this.contentLength = contentLength;
+    }
+
+    public int getContentLength() {
+        return contentLength;
     }
 
     public HashTable getTable() {
@@ -47,7 +59,13 @@ public class Message {
         this.content = content;
     }
 
-    public String toString() {
-        return from + "&" + to;
+    public Boolean isFriendly(BTree btree){
+        String option1 = this.from + " & " + this.to;
+        String option2 = this.to + " & " + this.from;
+        return (btree.search(option1) || btree.search(option2));
     }
+
+//    public String toString() {
+//        return from + " & " + to;
+//    }
 }

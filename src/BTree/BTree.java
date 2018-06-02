@@ -1,6 +1,7 @@
 package src.BTree;
 
 import src.Utils;
+import src.Queue.Queue;
 
 import java.util.StringJoiner;
 
@@ -24,34 +25,108 @@ public class BTree {
     public BTree(String s) {
         int t = Integer.parseInt(s);
         new BTree(t);
-        // TODO: Java man- can we overload like this?
      }
 
 //     private String getSymbol(BTreeNode first, BTreeNode second){
 //        if first.
 //     }
+    public String toString1(){
+        //TODO: not sure when and how to insert # and ^
+        _setHasRightCousins(this.root); // O(log(n))
+        _setRightMostBrothers(this.root); // O(n)
+
+        StringBuilder sb = new StringBuilder();
+
+        Queue nodeQ = new Queue();
+        Queue signQ = new Queue();
+
+        nodeQ.enqueue(this.root);
+        signQ.enqueue("#");
+
+        while (!nodeQ.isEmpty()){
+            // System.out.println("nodeQ is : " + nodeQ.toStringNode());
+            // System.out.println("signQ is : " + signQ.toString());
+            BTreeNode first = nodeQ.dequeueBNode();
+            String firstSign = signQ.dequeueString();
+            sb.append(first.toString());
+            // System.out.println("print is now: " + sb.toString());
+            sb.append(firstSign);
+            // System.out.println("print is now: " + sb.toString());
+//            System.out.println("first.getNumberOfKeys(): " + first.getNumberOfKeys());
+
+            if (!first.getIsLeaf()) {
+                for (int i = 0; i <= first.getNumberOfKeys(); i++) {
+                    BTreeNode child = first.getNthChild(i);
+                    // System.out.println("enquing node: " + child.toString());
+                    nodeQ.enqueue(child);
+
+                    if (child.isRightMostBrother()) {
+                        // System.out.println("enquing str: #");
+                        signQ.enqueue("#");
+                    }
+
+                    if (child.hasRightCousins()) {
+                        // System.out.println("enquing str: ^");
+                        signQ.enqueue("^");
+                    }
+
+                    if (i < first.getNumberOfKeys()) {
+                        // System.out.println("enquing str: |");
+                        signQ.enqueue("|");
+                    }
+                }
+            }
+//            System.out.println("enquing str: ^");
+//            nodeQ.enqueue("^");
+
+//            sb.append(getSymbol(prev, first));
+            // System.out.println("");
+        }
+        sb.deleteCharAt(sb.length() - 1);  // removes the last '#'
+        return sb.toString();
+    }
+
+    private void _setHasRightCousins(BTreeNode node){
+        if (node.getIsLeaf()){
+            return;
+        }
+        BTreeNode lastChild = node.getNthChild(node.getNumberOfKeys());
+        lastChild.setHasRightCousins(true);
+        for (BTreeNode child: node.getSons()){
+            if (child != null){
+                _setHasRightCousins(child);
+            }
+        }
+    }
+
+    private void _setRightMostBrothers(BTreeNode node){
+        node.setRightMostBrother(true);
+        node.setHasRightCousins(false);
+
+        if (!node.getIsLeaf()){
+            int lastChildIndex = node.getNumberOfKeys();
+            _setRightMostBrothers(node.getNthChild(lastChildIndex));
+        }
+
+    }
+//
+//    private int _getNumOfChildKeys(BTreeNode node){
+//        int count = 0;
+//        for (BTreeNode child: node.getSons()){
+//            if (child != null){
+//                count = count + child.getNumberOfKeys();
+//            }
+//        }
+//        return count;
+//    }
+
+
+    private Boolean _lastInLevel(BTreeNode node){
+        return false;
+    }
+
 
     public String toString(){
-        //TODO: this is now O(nlog(n)). change to O(n) if we
-        //TODO: time, using a queue.
-//        StringBuilder sb = new StringBuilder();
-//        BTreeNode prev = this.root;
-//
-//        Queue q = new Queue();
-//        q.enqueue(this.root);
-//        while (!q.isEmpty()){
-//            BTreeNode first = q.getFirst();
-//            for (BTreeNode son: first.getSons()){
-//                if (son != null){
-//                    q.enqueue(son);
-//                }
-//            }
-//            sb.append(getSymbol(prev, first));
-//            sb.append(first.toSring());
-//        }
-//        return sb.toString();
-
-        // old implementation from here down1
         StringJoiner sj = new StringJoiner("#");
 
         int h = height(this.root);
@@ -109,7 +184,6 @@ public class BTree {
         for (int keyIndex = 0; keyIndex < node.getNumberOfKeys(); keyIndex++){
             // System.out.println("adding key: " + node.getNthkey(keyIndex));
             sj.add(node.getNthkey(keyIndex));
-            // TODO: change the tree to strings with "abc".compareTo("abd")
         }
         return sj.toString() + node.getNumberOfKeys();
     }
@@ -139,10 +213,10 @@ public class BTree {
 //    private void insert(String key){
     // TODO: change to private after testing
     public void insert(String key){
-        System.out.println("starting to insert "+ key);
+        // System.out.println("starting to insert "+ key);
         BTreeNode currRoot = this.root;
         if (currRoot.getNumberOfKeys() == maxLength){
-            System.out.println("root is full, splitting root");
+            // System.out.println("root is full, splitting root");
             BTreeNode newRoot = new BTreeNode(maxLength, false);
             this.root = newRoot;
             newRoot.setNthChild(0, currRoot);
@@ -152,8 +226,8 @@ public class BTree {
         else{
             insertNonFull(currRoot, key);
         }
-        System.out.println("finished inserting "+ key);
-        System.out.println("");
+        // System.out.println("finished inserting "+ key);
+        // System.out.println("");
     }
 
     private static void insertNonFull(BTreeNode node, String key){
@@ -167,15 +241,15 @@ public class BTree {
     }
 
     private static void _insertToMiddleNode(int i, String key, BTreeNode node){
-        System.out.println("inserting " + key + " into a son of middle node- "+ _nodeToString(node));
+        // System.out.println("inserting " + key + " into a son of middle node- "+ _nodeToString(node));
         while (i >= 0 && Utils.isBefore(key, node.getNthkey(i))){
             i--;
         }
         int nodeToInsertIndex = i + 1;
         BTreeNode nodeToInsert = node.getNthChild(nodeToInsertIndex);
-        System.out.println("inserting into son num "+nodeToInsertIndex);
+        // System.out.println("inserting into son num "+nodeToInsertIndex);
         if (nodeToInsert.getNumberOfKeys() >= maxLength){
-            System.out.println("son num "+nodeToInsertIndex+" is full, splitting");
+            // System.out.println("son num "+nodeToInsertIndex+" is full, splitting");
 
             splitChild(node, nodeToInsertIndex);
             if (Utils.isAfter(key, node.getNthkey(i + 1))){
@@ -183,11 +257,11 @@ public class BTree {
             }
         }
         insertNonFull(nodeToInsert, key);
-        System.out.println("new middle node is- "+ _nodeToString(node));
+        // System.out.println("new middle node is- "+ _nodeToString(node));
     }
 
     private static void _insertToLeaf(int i, String key, BTreeNode node){
-        System.out.println("inserting " + key + " into leaf node- "+ _nodeToString(node));
+        // System.out.println("inserting " + key + " into leaf node- "+ _nodeToString(node));
         while (i >= 0 && Utils.isBefore(key, node.getNthkey(i))){
             String currKey = node.getNthkey(i);
             node.setNthkey(i + 1, currKey);
@@ -195,30 +269,30 @@ public class BTree {
         }
         node.setNthkey(i + 1, key);
         node.setNumberOfKeys(node.getNumberOfKeys() + 1);
-        System.out.println("new leaf node is- "+ _nodeToString(node));
+        // System.out.println("new leaf node is- "+ _nodeToString(node));
     }
 
     private static void splitChild(BTreeNode parent, int childToSplitIndex){
-        System.out.println("splitting the " + childToSplitIndex + "th child of" + _nodeToString(parent));
+        // System.out.println("splitting the " + childToSplitIndex + "th child of" + _nodeToString(parent));
         BTreeNode brother = parent.getNthChild(childToSplitIndex);
         BTreeNode newBrother = new BTreeNode(maxLength, brother.getIsLeaf());
 
-        System.out.println("giving pointers and keys from left to new brother");
+        // System.out.println("giving pointers and keys from left to new brother");
         _giveKeysPointersFromLeft(brother, newBrother);
-        System.out.println("new brother is now- "+_nodeToString(newBrother));
+        // System.out.println("new brother is now- "+_nodeToString(newBrother));
 
-        System.out.println("deleting pointers and keys from old brother");
+        // System.out.println("deleting pointers and keys from old brother");
         _deleteIrrelevantKeysPointers(brother);
-        System.out.println("old brother is now- "+_nodeToString(brother));
+        // System.out.println("old brother is now- "+_nodeToString(brother));
 
-        System.out.println("offseting pointers and keys from parent and inserting newBrother pointer");
+        // System.out.println("offseting pointers and keys from parent and inserting newBrother pointer");
         _offsetKeysPointers(newBrother, parent, childToSplitIndex);
-        System.out.println("parent is now- "+_nodeToString(parent));
+        // System.out.println("parent is now- "+_nodeToString(parent));
 
-        System.out.println("transferring biggesr value from brother to parent");
+        // System.out.println("transferring biggesr value from brother to parent");
         _transferBiggestValue(brother, parent, childToSplitIndex);
-        System.out.println("parent is now- "+_nodeToString(parent));
-        System.out.println("brother is now- "+_nodeToString(brother));
+        // System.out.println("parent is now- "+_nodeToString(parent));
+        // System.out.println("brother is now- "+_nodeToString(brother));
 
     }
 
@@ -287,11 +361,44 @@ public class BTree {
 
     /**
      * Search a key in the tree
-     * @param value - value comes as ("from&to") string
-     *              should search for the symmetric key (to&from) as well
+     * @param key - string value to search
      * @return true if found
      */
-    public boolean search(String value) {
-        return false;
+    public boolean search(String key) {
+
+        return _search(key, this.root);
+    }
+
+    private static boolean _search(String key, BTreeNode node){
+        int i = 0;
+        while (i < node.getNumberOfKeys() && Utils.isAfter(key, node.getNthkey(i))){
+            i++;
+        }
+        if (i < node.getNumberOfKeys() && key.equals(node.getNthkey(i))){
+            return true;
+        }else if (node.getIsLeaf()){
+            return false;
+        }else{
+            return _search(key, node.getNthChild(i));
+        }
+
+
+
+
+
+//            for (int i = 0 ; i < node.getNumberOfKeys(); i++){
+//            String currKey = node.getNthkey(i);
+//            if (key.equals(currKey)){
+//                return true;
+//            }
+//            if (Utils.isAfter(currKey, key)){
+//                BTreeNode childToSearch = node.getNthChild(i);
+//                if (childToSearch == null){
+//                    return false;
+//                }else{
+//                    return _search(key, childToSearch);
+//                }
+//            }
+//        }
     }
 }

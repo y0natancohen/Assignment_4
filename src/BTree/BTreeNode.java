@@ -14,6 +14,8 @@ public class BTreeNode {
     public BTreeNode[] sons;
     public String[] keys;
     public int numberOfKeys = 0;
+    private boolean hasRightCousins = false;
+    private boolean isRightMostBrother = false;
 
 
     //TODO: think how to implement these two
@@ -26,6 +28,23 @@ public class BTreeNode {
 //    public int getT() {
 //        return this.t;
 //    }
+
+
+    public void setHasRightCousins(boolean hasRightCousins) {
+        this.hasRightCousins = hasRightCousins;
+    }
+
+    public boolean hasRightCousins() {
+        return hasRightCousins;
+    }
+
+    public boolean isRightMostBrother() {
+        return isRightMostBrother;
+    }
+
+    public void setRightMostBrother(boolean rightMostBrother) {
+        isRightMostBrother = rightMostBrother;
+    }
 
     public Boolean getIsLeaf() {
         return this.isLeaf;
@@ -102,12 +121,14 @@ public class BTreeNode {
         return this.sons;
     }
 
-    public String toSring(){
+    public String toString(){
         StringJoiner sj = new StringJoiner(",");
         for (String key:this.keys){
-            if (!key.equals("")) {
-                sj.add(key);
-            }
+             if (key != null) {
+                 if (!key.equals("")) {
+                     sj.add(key);
+                 }
+             }
         }
         return sj.toString();
 

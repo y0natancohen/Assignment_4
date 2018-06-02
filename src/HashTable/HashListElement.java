@@ -18,6 +18,10 @@ public class HashListElement {
         this.count = count;
     }
 
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     public void setData(String data) {
         this.data = data;
     }

@@ -15,7 +15,7 @@ public class HashList {
     public void insert(String wordToAdd) {
         HashListElement elementToInsert = search(wordToAdd);
         if (elementToInsert == null) {
-            HashListElement element = new HashListElement(wordToAdd, 0);
+            HashListElement element = new HashListElement(wordToAdd, 1);
             element.setNext(this.head);
             this.head = element;
         } else {
@@ -34,16 +34,4 @@ public class HashList {
         return null;
     }
 
-    //todo:elad redundant?
-    public int count(String str) {
-        int counter = 0;
-        HashListElement curr = this.head;
-        while (curr != null) {
-            if (curr.getData().equals(str)) {
-                counter++;
-            }
-            curr = curr.getNext();
-        }
-        return counter;
-    }
 }

@@ -10,6 +10,7 @@ import src.Spam.Spam;
 import src.Spam.Spams;
 
 import java.util.Iterator;
+import java.util.StringJoiner;
 
 public class Messages implements Iterable<Message> {
 
@@ -34,10 +35,11 @@ public class Messages implements Iterable<Message> {
         for (Message message : this) {
             HashTable hashTable = new HashTable(size);
             String[] words = message.getContent().split("\\s+");
+            message.setContentLength(words.length);
             for (String word : words) {
                 hashTable.insert(word);
-                message.setTable(hashTable);
             }
+            message.setTable(hashTable);
         }
     }
 
@@ -77,18 +79,18 @@ public class Messages implements Iterable<Message> {
      * @return the indexes of the spam messages separated by comma
      */
     public String findSpams(String s, BTree btree) {
-        StringBuilder spamedMessagesIndexes = new StringBuilder();
+        StringJoiner spamedMessagesIndexes = new StringJoiner(",");
         IInputHandler<Spams> inputHandler = new SpamInputHandler<>();
         Spams spams = inputHandler.readFile(s);
         int messageIndex = 0;
         for (Message message : this) {
-            if (btree.search(message.toString())) {
-                int messageTotalWordCount = message.getContent().split(" ").length;
+            if (!message.isFriendly(btree)) {
+                int messageTotalWordCount = message.getContentLength();
                 for (Spam spam : spams) {
                     int spamCountInMessage = message.getTable().search(spam.getSpamWord()).getCount();
-                    int foundThreshold = (spamCountInMessage / messageTotalWordCount) * 100;
+                    double foundThreshold = ((double) spamCountInMessage / (double) messageTotalWordCount) * 100.0;
                     if (foundThreshold >= spam.getThreshold()) {
-                        spamedMessagesIndexes.append(messageIndex).append(",");
+                        spamedMessagesIndexes.add(Integer.toString(messageIndex));
                     }
                 }
             }
