@@ -10,6 +10,18 @@ import java.nio.file.Paths;
 
 public class Runner {
 
+    /** GENERAL TODO:
+     *
+     * האם קובץ הטקסט של ההודעות יכול להיות ריק? אם כן, מה על התוכנית לעשות?
+     * אם ייתכן שנקבל t<2 או m<=0?
+     * thread | reply
+     * Re: כמה שאלות
+     * by fredman - Thursday, 31 May 2018 21:00:23
+     * Hi,
+     * 1. Why not? You'll just have a empty messages array.
+     * 2. Those parameters don't sound very valid. Good thing we asked you to through exceptions for non-valid parameters.
+     */
+
 
 	//Arguments you program should expect:
 	//1. t (the value for BTree.BTree).
@@ -20,11 +32,12 @@ public class Runner {
 	public static void main(String[] args) {
 		
 		//Create the btree using the t value and the path to the friends file.
-		BTree btree = createTree(args[0]);
+		// BTree btree = createTree(args[0]);
+		BTree btree = createTree("2");
 
 		//Get the BFS representation of the btree
 		String treeLayout = btree.toString();
-		
+
 		// Create a Messages.Messages object based on the messages file.
 
         Messages messages = createArrayOfMessages();
@@ -32,7 +45,8 @@ public class Runner {
 		//For each message, create a hash table based on the words in the message.
 
 
-        messages.createHashTables(args[1]);
+//        messages.createHashTables(args[1]);
+        messages.createHashTables("50");
 
 
 		//Find the spam messages- Use the path of the spam_words file.

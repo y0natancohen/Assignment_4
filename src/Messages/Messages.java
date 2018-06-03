@@ -31,7 +31,7 @@ public class Messages implements Iterable<Message> {
      * @param _size - the size of the hash table to initiate
      */
     public void createHashTables(String _size) {
-        int size = Integer.parseInt(_size);
+        int size = convertValidate(_size);
         for (Message message : this) {
             HashTable hashTable = new HashTable(size);
             String[] words = message.getContent().split("\\s+");
@@ -41,6 +41,20 @@ public class Messages implements Iterable<Message> {
             }
             message.setTable(hashTable);
         }
+    }
+
+    private static int convertValidate(String _size){
+        // TODO: this
+//        try {
+//            float size = Float.parseFloat(_size);
+//        }throw new RuntimeException e){
+//            System.out.println("");
+//        }
+//        if (size == (int) size){
+//            return (int) size;
+//        }else
+        return 2;
+
     }
 
     private void rawMessagesToArray(LinkedList<Message> rawMessages) {
@@ -85,11 +99,9 @@ public class Messages implements Iterable<Message> {
         int messageIndex = 0;
         for (Message message : this) {
             if (!message.isFriendly(btree)) {
-                int messageTotalWordCount = message.getContentLength();
                 for (Spam spam : spams) {
-                    int spamCountInMessage = message.getTable().search(spam.getSpamWord()).getCount();
-                    double foundThreshold = ((double) spamCountInMessage / (double) messageTotalWordCount) * 100.0;
-                    if (foundThreshold >= spam.getThreshold()) {
+                    double foundPercentage = getPrecentage(message, spam);
+                    if (foundPercentage >= spam.getThreshold()) {
                         spamedMessagesIndexes.add(Integer.toString(messageIndex));
                     }
                 }
@@ -97,6 +109,14 @@ public class Messages implements Iterable<Message> {
             messageIndex++;
         }
         return spamedMessagesIndexes.toString();
+    }
+
+    // TODO change private
+//    private static double getPrecentage(Message message, Spam spam){
+    public static double getPrecentage(Message message, Spam spam){
+        int messageTotalWordCount = message.getContentLength();
+        int spamCountInMessage = message.getTable().search(spam.getSpamWord()).getCount();
+        return ((double) spamCountInMessage / (double) messageTotalWordCount) * 100.0;
     }
 
     private class MessagesIterator implements Iterator<Message> {

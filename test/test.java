@@ -6,6 +6,7 @@ import src.HashTable.HashTable;
 import src.Messages.Message;
 import src.Messages.Messages;
 import src.Queue.Queue;
+import src.Spam.Spam;
 
 public class test {
 
@@ -22,11 +23,21 @@ public class test {
         System.out.println("---------------------------------------------");
 //        testMessages2();
         System.out.println("---------------------------------------------");
+        testPercentage();
+        System.out.println("---------------------------------------------");
 
 
 
 
 
+    }
+
+    public static void testPercentage(){
+        // TODO: add a table to the message
+        Message m = new Message("a", "b", "a b c d a");
+        Spam s  = new Spam("a", 5);
+        double d = Messages.getPrecentage(m, s);
+        test(d, 20.0);
     }
 
 
@@ -221,6 +232,17 @@ public class test {
 
     }
 
+
+    public static void test(double expected, double found){
+        if (found == expected){
+            System.out.println("all good");
+        }else {
+            System.out.println("what came out:    " + found);
+            System.out.print("what is expected: " + expected);
+            System.out.println();
+        }
+
+    }
 
     public static void test(int expected, int found){
         if (found == expected){

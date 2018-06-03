@@ -16,6 +16,7 @@ public class BTree {
 
     public BTree(int t) {
         BTree.t = t;
+        validateT(t);
         maxLength = (2 * t) - 1;
         minLength = t - 1;
         this.root = new BTreeNode(maxLength, true);
@@ -24,7 +25,15 @@ public class BTree {
 
     public BTree(String s) {
         int t = Integer.parseInt(s);
-        new BTree(t);
+        validateT(t);
+        BTree.t = t;
+        maxLength = (2 * t) - 1;
+        minLength = t - 1;
+        this.root = new BTreeNode(maxLength, true);
+     }
+
+     private void validateT(int t){
+        if (t<2){throw new RuntimeException("t value must be >= 2 (got "+t+")"); }
      }
 
 //     private String getSymbol(BTreeNode first, BTreeNode second){
@@ -205,8 +214,9 @@ public class BTree {
     public void createFullTree(String filePath){
         String friends = Utils.readFile(filePath);
         String[] lines = friends.split("\n");
-        for (int lineIndex = 0; lineIndex < lines.length; lineIndex++){
-            this.insert(lines[lineIndex]);
+        for (String line: lines){
+//            System.out.println("inserting: "+ line);
+            this.insert(line);
         }
     }
 
