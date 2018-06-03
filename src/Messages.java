@@ -17,11 +17,12 @@ public class Messages implements Iterable<Message> {
      * @param size - the size of the hash table to initiate
      */
     public void createHashTables(String size) {
-        if (!isInt(size)) {
+        if (!Utils.isInt(size)) {
             throw new RuntimeException("size input is not a valid number");
         }
+        int m = Integer.valueOf(size);
         for (Message message : this) {
-            HashTable hashTable = new HashTable(Integer.valueOf(size));
+            HashTable hashTable = new HashTable(m);
             String[] words = message.getContent().split("\\s+");
             message.setContentLength(words.length);
             for (String word : words) {
@@ -31,13 +32,7 @@ public class Messages implements Iterable<Message> {
         }
     }
 
-    private boolean isInt(String input) {
-        String validInput = "0123456789";
-        for (char c : input.toCharArray()) {
-            if (!validInput.contains(String.valueOf(c))) return false;
-        }
-        return true;
-    }
+
 
     private void rawMessagesToArray(LinkedList<Message> rawMessages) {
         messages = new Message[rawMessages.getSize()];
@@ -84,7 +79,7 @@ public class Messages implements Iterable<Message> {
             if (!message.isFriendly(btree)) {
                 for (Spam spam : spams) {
                     if (foundSpam) break;
-                    double foundPercentage = getPrecentage(message, spam);
+                    double foundPercentage = getPercentage(message, spam);
                     if (foundPercentage >= spam.getThreshold()) {
                         spamedMessagesIndexes.add(Integer.toString(messageIndex));
                         foundSpam = true;
@@ -96,7 +91,7 @@ public class Messages implements Iterable<Message> {
         return spamedMessagesIndexes.toString();
     }
 
-    public static double getPrecentage(Message message, Spam spam) {
+    private double getPercentage(Message message, Spam spam) {
         int messageTotalWordCount = message.getContentLength();
         HashListElement item = message.getTable().search(spam.getSpamWord());
         int spamCountInMessage = item != null ? item.getCount() : 0;
@@ -124,5 +119,3 @@ public class Messages implements Iterable<Message> {
     }
 
 }
-
-

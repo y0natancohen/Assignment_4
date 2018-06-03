@@ -15,6 +15,14 @@ public class Utils {
         return content;
     }
 
+    public static boolean isInt(String input) {
+        String validInput = "0123456789";
+        for (char c : input.toCharArray()) {
+            if (!validInput.contains(String.valueOf(c))) return false;
+        }
+        return true;
+    }
+
     public static String parseMessage(String rawMessage) {
         return "";
     }

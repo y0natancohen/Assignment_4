@@ -5,16 +5,10 @@ public class BTree {
     private static int minLength;
     private BTreeNode root;
 
-    public BTree(int t) {
-        BTree.t = t;
-        validateT(t);
-        maxLength = (2 * t) - 1;
-        minLength = t - 1;
-        this.root = new BTreeNode(maxLength, true);
-    }
-
-
     public BTree(String s) {
+        if (!Utils.isInt(s)){
+            throw new RuntimeException("t is not a valid number (got "+s+")");
+        }
         int t = Integer.parseInt(s);
         validateT(t);
         BTree.t = t;
@@ -32,14 +26,19 @@ public class BTree {
         _setRightMostBrothers(this.root); // O(n)
 
         StringBuilder sb = new StringBuilder();
-
         Queue nodeQ = new Queue();
         Queue signQ = new Queue();
 
         nodeQ.enqueue(this.root);
         signQ.enqueue("#");
 
-        while (!nodeQ.isEmpty()){
+        queueLoop(sb, nodeQ, signQ); // O(n)
+        sb.deleteCharAt(sb.length() - 1);  // removes the last '#'
+        return sb.toString();
+    }
+
+    private void queueLoop(StringBuilder sb, Queue nodeQ, Queue signQ) {
+        while (!nodeQ.isEmpty()){  // O(n)
             BTreeNode first = nodeQ.dequeueBNode();
             String firstSign = signQ.dequeueString();
             sb.append(first.toString());
@@ -49,23 +48,24 @@ public class BTree {
                 for (int i = 0; i <= first.getNumberOfKeys(); i++) {
                     BTreeNode child = first.getNthChild(i);
                     nodeQ.enqueue(child);
-
-                    if (child.isRightMostBrother()) {
-                        signQ.enqueue("#");
-                    }
-
-                    if (child.hasRightCousins()) {
-                        signQ.enqueue("^");
-                    }
-
-                    if (i < first.getNumberOfKeys()) {
-                        signQ.enqueue("|");
-                    }
+                    addSign(signQ, first, i, child);
                 }
             }
         }
-        sb.deleteCharAt(sb.length() - 1);  // removes the last '#'
-        return sb.toString();
+    }
+
+    private void addSign(Queue signQ, BTreeNode first, int i, BTreeNode child) {
+        if (child.isRightMostBrother()) {
+            signQ.enqueue("#");
+        }
+
+        if (child.hasRightCousins()) {
+            signQ.enqueue("^");
+        }
+
+        if (i < first.getNumberOfKeys()) {
+            signQ.enqueue("|");
+        }
     }
 
     private void _setHasRightCousins(BTreeNode node){
@@ -100,7 +100,14 @@ public class BTree {
         }
     }
 
+    private void validateKey(String key){
+        if (key == null || key.isEmpty()){
+            throw new RuntimeException("cannot insert or search null or empty string to tree");
+        }
+    }
+
     private void insert(String key){
+        validateKey(key);
         BTreeNode currRoot = this.root;
         if (currRoot.getNumberOfKeys() == maxLength){
             BTreeNode newRoot = new BTreeNode(maxLength, false);
@@ -228,7 +235,8 @@ public class BTree {
      * @return true if found
      */
      boolean search(String key) {
-        return _search(key, this.root);
+         validateKey(key);
+         return _search(key, this.root);
     }
 
     private static boolean _search(String key, BTreeNode node){

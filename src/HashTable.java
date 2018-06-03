@@ -4,6 +4,18 @@ public class HashTable {
 
     private HashList[] arr;
 
+
+    public HashTable(String _size) {
+        if (!Utils.isInt(_size)) {
+            throw new RuntimeException("size input is not a valid number");
+        }
+        int size = Integer.valueOf(_size);
+        if (size < 1){
+            throw new RuntimeException("hash table size cant be < 1 (got "+size+")");
+        }
+        this.arr = new HashList[size];
+    }
+
     public HashTable(int size) {
         this.arr = new HashList[size];
     }
