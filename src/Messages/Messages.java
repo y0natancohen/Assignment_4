@@ -1,6 +1,7 @@
 package src.Messages;
 
 import src.BTree.BTree;
+import src.HashTable.HashListElement;
 import src.HashTable.HashTable;
 import src.InputHandlers.IInputHandler;
 import src.InputHandlers.MessageInputHandler;
@@ -90,11 +91,14 @@ public class Messages implements Iterable<Message> {
         Spams spams = inputHandler.readFile(s);
         int messageIndex = 0;
         for (Message message : this) {
+            boolean foundSpam = false;
             if (!message.isFriendly(btree)) {
                 for (Spam spam : spams) {
+                    if (foundSpam) break;
                     double foundPercentage = getPrecentage(message, spam);
                     if (foundPercentage >= spam.getThreshold()) {
                         spamedMessagesIndexes.add(Integer.toString(messageIndex));
+                        foundSpam = true;
                     }
                 }
             }
@@ -103,11 +107,10 @@ public class Messages implements Iterable<Message> {
         return spamedMessagesIndexes.toString();
     }
 
-//    private static double getPrecentage(Message message, Spam spam) {
-    // TODO change private
     public static double getPrecentage(Message message, Spam spam) {
         int messageTotalWordCount = message.getContentLength();
-        int spamCountInMessage = message.getTable().search(spam.getSpamWord()).getCount();
+        HashListElement item = message.getTable().search(spam.getSpamWord());
+        int spamCountInMessage = item != null ? item.getCount() : 0;
         return ((double) spamCountInMessage / (double) messageTotalWordCount) * 100.0;
     }
 

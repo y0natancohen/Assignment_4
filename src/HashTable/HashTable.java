@@ -22,13 +22,12 @@ public class HashTable {
     public HashListElement search(String str) {
         int indexToSearch = this.hashFunction(str);
         HashList listToSearch = this.arr[indexToSearch];
-        return listToSearch.search(str);
+        return listToSearch != null ? listToSearch.search(str) : null;
     }
-// TODO change privarte
-//    private int hashFunction(String str) {
 
     /**
      * calculating (str mod arr.length) using horner's rule.
+     *
      * @param str to be hashed
      * @return int hash
      */
@@ -39,7 +38,7 @@ public class HashTable {
             master = ((intCharacter + master) * 256) % this.arr.length;
         }
         // this is A1 of the polynome
-        master = (master + (int) str.charAt(str.length()-1)) % this.arr.length;
+        master = (master + (int) str.charAt(str.length() - 1)) % this.arr.length;
         return master;
     }
 
