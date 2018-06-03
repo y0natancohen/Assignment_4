@@ -1,6 +1,3 @@
-package src;
-
-import src.LinkedList.LinkedList;
 
 import java.util.Iterator;
 

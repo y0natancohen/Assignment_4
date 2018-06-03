@@ -1,4 +1,4 @@
-package src;
+
 
 public class HashListElement {
     private String data;
@@ -9,10 +9,6 @@ public class HashListElement {
         return count;
     }
 
-    public HashListElement(String data) {
-        this.data = data;
-    }
-
     public HashListElement(String data, int count) {
         this.data = data;
         this.count = count;
@@ -20,10 +16,6 @@ public class HashListElement {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public String getData() {

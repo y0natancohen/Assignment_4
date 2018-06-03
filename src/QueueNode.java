@@ -1,6 +1,3 @@
-package src;
-
-//import src.BTree.BTreeNode;
 
 public class QueueNode {
 

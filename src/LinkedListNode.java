@@ -1,4 +1,4 @@
-package src;
+
 
 public class LinkedListNode<T> {
 
@@ -11,10 +11,6 @@ public class LinkedListNode<T> {
 
     T getData() {
         return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 
     LinkedListNode<T> getNext() {

@@ -1,7 +1,3 @@
-package src;
-
-//import src.BTree.BTreeNode;
-
 import java.util.StringJoiner;
 
 public class Queue {
@@ -35,13 +31,6 @@ public class Queue {
         }
     }
 
-//    public BTreeNode getFirst(){
-//        return this.first.getNode();
-//    }
-
-//    public QueueNode getLast() {
-//        return last;
-//    }
 
     public BTreeNode dequeueBNode(){
         return _dequeueNode().getNode();
@@ -62,16 +51,6 @@ public class Queue {
         QueueNode temp = this.first;
         while (temp != null){
             sj.add("(" + temp.getStr() + ")");
-            temp = temp.getPrev();
-        }
-        return sj.toString();
-    }
-
-    public String toStringNode() {
-        StringJoiner sj = new StringJoiner(",");
-        QueueNode temp = this.first;
-        while (temp != null){
-            sj.add("(" + temp.getNode().toString() + ")");
             temp = temp.getPrev();
         }
         return sj.toString();

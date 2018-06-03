@@ -1,7 +1,3 @@
-package src;
-
-//import src.BTree.BTree;
-//import src.HashTable.HashTable;
 
 public class Message {
 
@@ -65,7 +61,4 @@ public class Message {
         return (btree.search(option1) || btree.search(option2));
     }
 
-//    public String toString() {
-//        return from + " & " + to;
-//    }
 }

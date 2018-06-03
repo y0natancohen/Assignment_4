@@ -1,4 +1,3 @@
-package src;
 
 public class HashList {
     private HashListElement head;
