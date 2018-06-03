@@ -11,11 +11,17 @@ public class Queue {
     }
 
     public void enqueue(BTreeNode BNode){
+        if (BNode == null){
+            throw new RuntimeException("Cant insert null to queue");
+        }
         QueueNode qNode = new QueueNode(BNode);
         _enqueue(qNode);
     }
 
     public void enqueue(String str){
+        if (str == null || str.isEmpty()){
+            throw new RuntimeException("Cant insert null or empty to queue");
+        }
         QueueNode qNode = new QueueNode(str);
         _enqueue(qNode);
     }

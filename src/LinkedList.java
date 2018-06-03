@@ -11,6 +11,7 @@ public class LinkedList<T> implements Iterable<T> {
     }
 
     public void add(T data) {
+        if (data == null) throw new RuntimeException("Cant add null to list");
         LinkedListNode<T> node = new LinkedListNode<>(data);
         if (head == null) {
             head = node;
@@ -30,18 +31,6 @@ public class LinkedList<T> implements Iterable<T> {
 
     public int getSize() {
         return size;
-    }
-
-    public Boolean search(String str) {
-        LinkedListNode tmp = this.head;
-        while (tmp != null) {
-            if (tmp.getData() == str) {
-                return true;
-            } else {
-                tmp = tmp.getNext();
-            }
-        }
-        return false;
     }
 
     @Override
