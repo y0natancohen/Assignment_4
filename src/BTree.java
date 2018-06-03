@@ -33,6 +33,7 @@ public class BTree {
         signQ.enqueue("#");
 
         queueLoop(sb, nodeQ, signQ); // O(n)
+
         sb.deleteCharAt(sb.length() - 1);  // removes the last '#'
         return sb.toString();
     }
@@ -161,7 +162,7 @@ public class BTree {
         BTreeNode brother = parent.getNthChild(childToSplitIndex);
         BTreeNode newBrother = new BTreeNode(maxLength, brother.getIsLeaf());
 
-        _giveKeysPointersFromLeft(brother, newBrother);
+        _giveKeysPointersFromRight(brother, newBrother);
 
         _deleteIrrelevantKeysPointers(brother);
 
@@ -171,7 +172,7 @@ public class BTree {
 
     }
 
-    private static void _giveKeysPointersFromLeft(BTreeNode brother, BTreeNode newBrother){
+    private static void _giveKeysPointersFromRight(BTreeNode brother, BTreeNode newBrother){
         for (int i = 0; i < minLength; i++){
             newBrother.setNthkey(i, brother.getNthkey(i+t));
         }
@@ -179,7 +180,7 @@ public class BTree {
 
 
         if (!brother.getIsLeaf()){
-            // giving the new brother t pointers from the left
+            // giving the new brother t pointers from the right
             for (int i = 0; i < minLength + 1; i++){
                 newBrother.setNthChild(i, brother.getNthChild(i+t));
             }
