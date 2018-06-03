@@ -2,9 +2,9 @@
 
 public class Spam {
     private String spamWord;
-    private int threshold;
+    private double threshold;
 
-    public Spam(String spamWord, int threshold) {
+    public Spam(String spamWord, double threshold) {
         this.spamWord = spamWord;
         this.threshold = threshold;
     }
@@ -17,7 +17,7 @@ public class Spam {
         this.spamWord = spamWord;
     }
 
-    public int getThreshold() {
+    public double getThreshold() {
         return threshold;
     }
 

@@ -12,7 +12,7 @@ public class SpamInputHandler<T> implements IInputHandler<T> {
             String rawLine;
             while ((rawLine = bufferReader.readLine()) != null) {
                 String[] line = rawLine.split(" ");
-                spamWords.add(new Spam(line[0], Integer.parseInt(line[1])));
+                spamWords.add(new Spam(line[0], Double.parseDouble(line[1])));
             }
         } catch (IOException ex) {
             ex.printStackTrace();
