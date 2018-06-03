@@ -11,13 +11,13 @@ public class LinkedListIterator<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        return current.getNext() != null;
+        return current != null;
     }
 
     @Override
     public T next() {
-        LinkedListNode<T> res = current.getNext();
+        LinkedListNode<T> toReturn = current;
         current = current.getNext();
-        return res.getData();
+        return toReturn.getData();
     }
 }

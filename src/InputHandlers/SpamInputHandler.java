@@ -14,8 +14,9 @@ public class SpamInputHandler<T> implements IInputHandler<T> {
         LinkedList<Spam> spamWords = new LinkedList<>();
         try {
             BufferedReader bufferReader = new BufferedReader(new FileReader(pathToFile));
-            while ((bufferReader.readLine()) != null) {
-                String[] line = bufferReader.readLine().split(" ");
+            String rawLine;
+            while ((rawLine = bufferReader.readLine()) != null) {
+                String[] line = rawLine.split(" ");
                 spamWords.add(new Spam(line[0], Integer.parseInt(line[1])));
             }
         } catch (IOException ex) {

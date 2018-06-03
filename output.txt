@@ -1,2 +1,1 @@
-Lennon & McCartney#Bert & Ernie|Peanut_Butter & Jelly,Spongebob & Patrick#Batman & Robin|Chip & Dale,Han_Solo & Chewbacca^Miss_Piggy & Kermit|Scooby_Doo & Shaggy,Simon & Garfunkel|Tom & Jerry
-4,6,10,12
+Lennon & McCartney1#Bert & Ernie1|Peanut_Butter & Jelly,Spongebob & Patrick2#Batman & Robin1|Chip & Dale,Han_Solo & Chewbacca2^Miss_Piggy & Kermit1|Scooby_Doo & Shaggy,Simon & Garfunkel2|Tom & Jerry1

@@ -3,7 +3,6 @@ package src.LinkedList;
 public class LinkedListNode<T> {
 
     private LinkedListNode next;
-    private LinkedListNode prev;
     private T data;
 
     LinkedListNode(T data){
@@ -26,11 +25,4 @@ public class LinkedListNode<T> {
         this.next = next;
     }
 
-    public LinkedListNode getPrev() {
-        return prev;
-    }
-
-    void setPrev(LinkedListNode prev) {
-        this.prev = prev;
-    }
 }

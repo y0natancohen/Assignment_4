@@ -36,7 +36,6 @@ public class test {
     }
 
 
-
     public static void testASCII(){
         HashTable table  = new HashTable(50);
         int i = table.hashFunction("Â£300");
@@ -49,7 +48,6 @@ public class test {
         double d = Messages.getPrecentage(m, s);
         test(d, 20.0);
     }
-
 
     public static void testQ(){
         Queue q = new Queue();
