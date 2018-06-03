@@ -23,7 +23,7 @@ public class test {
         System.out.println("---------------------------------------------");
 //        testMessages2();
         System.out.println("---------------------------------------------");
-        testPercentage();
+//        testPercentage();
         System.out.println("---------------------------------------------");
 
 
@@ -32,13 +32,13 @@ public class test {
 
     }
 
-    public static void testPercentage(){
-        // TODO: add a table to the message
-        Message m = new Message("a", "b", "a b c d a");
-        Spam s  = new Spam("a", 5);
-        double d = Messages.getPrecentage(m, s);
-        test(d, 20.0);
-    }
+//    public static void testPercentage(){
+//        // TODO: add a table to the message
+//        Message m = new Message("a", "b", "a b c d a");
+//        Spam s  = new Spam("a", 5);
+//        double d = Messages.getPrecentage(m, s);
+//        test(d, 20.0);
+//    }
 
 
     public static void testQ(){

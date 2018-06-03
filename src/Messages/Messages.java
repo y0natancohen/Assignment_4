@@ -16,10 +16,6 @@ public class Messages implements Iterable<Message> {
 
     private Message[] messages;
 
-    public Message[] getMessages() {
-        return messages;
-    }
-
     public Messages() {
 
     }
@@ -28,12 +24,14 @@ public class Messages implements Iterable<Message> {
      * Initiate hash table for each message representing
      * its content
      *
-     * @param _size - the size of the hash table to initiate
+     * @param size - the size of the hash table to initiate
      */
-    public void createHashTables(String _size) {
-        int size = convertValidate(_size);
+    public void createHashTables(String size) {
+        if (!isInt(size)) {
+            throw new RuntimeException("size input is not a valid number");
+        }
         for (Message message : this) {
-            HashTable hashTable = new HashTable(size);
+            HashTable hashTable = new HashTable(Integer.valueOf(size));
             String[] words = message.getContent().split("\\s+");
             message.setContentLength(words.length);
             for (String word : words) {
@@ -43,18 +41,12 @@ public class Messages implements Iterable<Message> {
         }
     }
 
-    private static int convertValidate(String _size){
-        // TODO: this
-//        try {
-//            float size = Float.parseFloat(_size);
-//        }throw new RuntimeException e){
-//            System.out.println("");
-//        }
-//        if (size == (int) size){
-//            return (int) size;
-//        }else
-        return 2;
-
+    private boolean isInt(String input) {
+        String validInput = "0123456789";
+        for (char c : input.toCharArray()) {
+            if (!validInput.contains(String.valueOf(c))) return false;
+        }
+        return true;
     }
 
     private void rawMessagesToArray(LinkedList<Message> rawMessages) {
@@ -111,9 +103,7 @@ public class Messages implements Iterable<Message> {
         return spamedMessagesIndexes.toString();
     }
 
-    // TODO change private
-//    private static double getPrecentage(Message message, Spam spam){
-    public static double getPrecentage(Message message, Spam spam){
+    private double getPrecentage(Message message, Spam spam) {
         int messageTotalWordCount = message.getContentLength();
         int spamCountInMessage = message.getTable().search(spam.getSpamWord()).getCount();
         return ((double) spamCountInMessage / (double) messageTotalWordCount) * 100.0;
@@ -128,14 +118,11 @@ public class Messages implements Iterable<Message> {
 
         @Override
         public boolean hasNext() {
-            return messages[index] != null;
+            return index < messages.length;
         }
 
         @Override
         public Message next() {
-            if (!hasNext()) {
-                throw new RuntimeException("No Elements in Sequence!");
-            }
             Message res = messages[index];
             index++;
             return res;
