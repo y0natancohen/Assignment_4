@@ -23,8 +23,11 @@ public class test {
         System.out.println("---------------------------------------------");
 //        testMessages2();
         System.out.println("---------------------------------------------");
-        testPercentage();
+//        testPercentage();
         System.out.println("---------------------------------------------");
+        testASCII();
+        System.out.println("---------------------------------------------");
+
 
 
 
@@ -32,6 +35,13 @@ public class test {
 
     }
 
+
+
+    public static void testASCII(){
+        HashTable table  = new HashTable(50);
+        int i = table.hashFunction("Â£300");
+        System.out.println("hash of Â£300 is: "+i);
+    }
     public static void testPercentage(){
         // TODO: add a table to the message
         Message m = new Message("a", "b", "a b c d a");

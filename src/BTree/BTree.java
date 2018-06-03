@@ -194,7 +194,7 @@ public class BTree {
             // System.out.println("adding key: " + node.getNthkey(keyIndex));
             sj.add(node.getNthkey(keyIndex));
         }
-        return sj.toString() + node.getNumberOfKeys();
+        return sj.toString();
     }
 
 
