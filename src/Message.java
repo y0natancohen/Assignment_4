@@ -1,7 +1,7 @@
-package src.Messages;
+package src;
 
-import src.BTree.BTree;
-import src.HashTable.HashTable;
+//import src.BTree.BTree;
+//import src.HashTable.HashTable;
 
 public class Message {
 

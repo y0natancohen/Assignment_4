@@ -1,4 +1,4 @@
-package src.LinkedList;
+package src;
 
 public class LinkedListNode<T> {
 

@@ -1,4 +1,4 @@
-package src.Spam;
+package src;
 
 import java.util.Iterator;
 

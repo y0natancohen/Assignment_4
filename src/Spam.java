@@ -1,4 +1,4 @@
-package src.Spam;
+package src;
 
 public class Spam {
     private String spamWord;

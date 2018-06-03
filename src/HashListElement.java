@@ -1,4 +1,4 @@
-package src.HashTable;
+package src;
 
 public class HashListElement {
     private String data;

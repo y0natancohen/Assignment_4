@@ -1,4 +1,4 @@
-package src.InputHandlers;
+package src;
 
 public interface IInputHandler<T> {
     /**

@@ -1,13 +1,13 @@
-package src.Messages;
+package src;
 
-import src.BTree.BTree;
-import src.HashTable.HashTable;
-import src.InputHandlers.IInputHandler;
-import src.InputHandlers.MessageInputHandler;
-import src.InputHandlers.SpamInputHandler;
-import src.LinkedList.LinkedList;
-import src.Spam.Spam;
-import src.Spam.Spams;
+//import src.BTree.BTree;
+//import src.HashTable.HashTable;
+//import src.InputHandlers.IInputHandler;
+//import src.InputHandlers.MessageInputHandler;
+//import src.InputHandlers.SpamInputHandler;
+//import src.LinkedList.LinkedList;
+//import src.Spam.Spam;
+//import src.Spam.Spams;
 
 import java.util.Iterator;
 import java.util.StringJoiner;

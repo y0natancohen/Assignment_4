@@ -1,8 +1,8 @@
-package src.InputHandlers;
-
-import src.LinkedList.LinkedList;
-import src.Spam.Spam;
-import src.Spam.Spams;
+package src;
+//
+//import src.LinkedList.LinkedList;
+//import src.Spam.Spam;
+//import src.Spam.Spams;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
