@@ -32,8 +32,7 @@ public class Runner {
 	public static void main(String[] args) {
 		
 		//Create the btree using the t value and the path to the friends file.
-		// BTree btree = createTree(args[0]);
-		BTree btree = createTree("2");
+		 BTree btree = createTree(args[0]);
 
 		//Get the BFS representation of the btree
 		String treeLayout = btree.toString();
@@ -45,8 +44,7 @@ public class Runner {
 		//For each message, create a hash table based on the words in the message.
 
 
-//        messages.createHashTables(args[1]);
-        messages.createHashTables("50");
+        messages.createHashTables(args[1]);
 
 
 		//Find the spam messages- Use the path of the spam_words file.
