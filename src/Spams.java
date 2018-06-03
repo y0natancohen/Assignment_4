@@ -1,12 +1,19 @@
 package src;
 
+import src.LinkedList.LinkedList;
+
 import java.util.Iterator;
 
 public class Spams implements Iterable<Spam> {
     private Spam[] spamMessages;
 
-    public Spams(int spamWordsSize) {
-        this.spamMessages = new Spam[spamWordsSize];
+    public Spams(LinkedList<Spam> list) {
+        spamMessages = new Spam[list.getSize()];
+        int i = 0;
+        for (Spam s : list) {
+            spamMessages[i] = s;
+            i++;
+        }
     }
 
     public Spam[] getSpamMessages() {
@@ -27,7 +34,7 @@ public class Spams implements Iterable<Spam> {
 
         @Override
         public boolean hasNext() {
-            return spamMessages[index] != null;
+            return index<spamMessages.length;
         }
 
         @Override

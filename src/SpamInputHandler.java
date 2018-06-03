@@ -22,9 +22,7 @@ public class SpamInputHandler<T> implements IInputHandler<T> {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        Spams spams = new Spams(spamWords.getSize());
-
-        // todo:elad understand why casting is necessary here
+        Spams spams = new Spams(spamWords);
         return (T) spams;
     }
 }
